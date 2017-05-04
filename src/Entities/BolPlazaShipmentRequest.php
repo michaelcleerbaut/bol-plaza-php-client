@@ -20,7 +20,8 @@ class BolPlazaShipmentRequest extends BaseModel {
         'OrderItemId',
         'ShipmentReference',
         'DateTime',
-        'ExpectedDeliveryDate'
+        'ExpectedDeliveryDate',
+        'ShippingLabelCode'
     ];
 
     protected $nestedEntities = [

@@ -76,12 +76,13 @@ class BolPlazaClient
     /**
      * Get list of shipments
      * @param int $page The page of the set of shipments
+     * @param $filfilmentmethod Options: FBR (shipment fulfilled by the seller), FBB (shipment fulfilled by bol.com), ALL
      * @return array
      */
-    public function getShipments($page = 1)
+    public function getShipments($page = 1, $fulfilmentmethod = "ALL")
     {
         $url = '/services/rest/shipments/' . self::API_VERSION;
-        $apiResult = $this->makeRequest('GET', $url, array("page" => $page));
+        $apiResult = $this->makeRequest('GET', $url, array("page" => $page, "fulfilmentmethod" => $fulfilmentmethod));
         $shipments = BolPlazaDataParser::createCollectionFromResponse('BolPlazaShipment', $apiResult);
         return $shipments;
     }
@@ -97,6 +98,31 @@ class BolPlazaClient
         $returnItems = BolPlazaDataParser::createCollectionFromResponse('BolPlazaReturnItem', $apiResult);
         return $returnItems;
     }
+    
+    /**
+     * Get PDF label
+     *  @param int $transportId
+     *  @param int $shippingLabeLid
+     *  @return PDF code
+     */
+    public function getPdfLabel($transportId, $shippingLabelId)
+    {        
+        $url = '/services/rest/transports/' . self::API_VERSION . '/' . $transportId . '/shipping-label/' . $shippingLabelId;                
+        $apiResult = $this->makeRequest('GET', $url);        
+        return $apiResult;
+    }    
+
+    /**
+     * Get list of purchasable shipping labels  // getOrderItemPossibleLabels
+     * @param int $orderItemId
+     * @return array
+     */
+    public function getPurchasableShippingLabels($orderItemId)
+    {                
+        $url = '/services/rest/purchasable-shipping-labels/' . self::API_VERSION;               
+        $apiResult = $this->makeRequest('GET', $url, ['orderItemId' => $orderItemId]);        
+        return $apiResult;        
+    }  
 
     /**
      * Get list of BolPlazaPayment entities

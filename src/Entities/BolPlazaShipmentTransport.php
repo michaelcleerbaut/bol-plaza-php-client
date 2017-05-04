@@ -15,6 +15,8 @@ class BolPlazaShipmentTransport extends BaseModel {
 
     protected $attributes = [
         'TransportId',
-        'TransporterCode'
+        'TransporterCode',
+        'TrackAndTrace',
+		'ShippingLabelId'
     ];
 }
