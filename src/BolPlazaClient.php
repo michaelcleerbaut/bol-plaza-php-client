@@ -119,9 +119,10 @@ class BolPlazaClient
      */
     public function getPurchasableShippingLabels($orderItemId)
     {                
-        $url = '/services/rest/purchasable-shipping-labels/' . self::API_VERSION;               
-        $apiResult = $this->makeRequest('GET', $url, ['orderItemId' => $orderItemId]);        
-        return $apiResult;        
+        $url = '/services/rest/purchasable-shipping-labels/' . self::API_VERSION;
+        $apiResult = $this->makeRequest('GET', $url, ['orderItemId' => $orderItemId]);
+        $returnItems = BolPlazaDataParser::createCollectionFromResponse('BolPlazaPurchasableShippingLabels', $apiResult);
+        return $returnItems;
     }  
 
     /**
