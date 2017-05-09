@@ -327,7 +327,7 @@ class BolPlazaClient
         if (in_array($method, ['POST', 'PUT', 'DELETE']) && ! is_null($data)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         } elseif ($method == 'GET' && !empty($data)) {
-            params = "";
+            $params = "";
             $suffix = "?";
             foreach ($data as $key => $value) {
               $params .= $suffix . $key . '=' . $value;
